@@ -1,10 +1,13 @@
-import { observable, action } from 'mobx';
-import { Items } from './Items';
+/* eslint-disable quotes */
+import { observable, action, computed } from "mobx";
+import { Items } from "./Items";
 
 export class Inventory {
   @observable items = [];
+  @computed get totalItems() {
+    return this.items.length;
+  }
   @action addItem = (name, price, quantity) => {
-    console.log(name)
     if (this.items.find(i => i.name === name)) {
       let itemIndex = this.items.findIndex(i => i.name === name);
       this.items[itemIndex].quantity++;
@@ -24,7 +27,7 @@ export class Inventory {
   };
   @action changePrice = (name, price) => {
     let itemIndex = this.items.findIndex(i => i.name === name);
-    
+
     this.items[itemIndex].price = price;
   };
 }

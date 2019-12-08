@@ -1,7 +1,8 @@
 /* eslint-disable quotes */
 import React, { Component } from "react";
-import { observer } from "mobx-react";
+import { observer, inject } from "mobx-react";
 import Item from "./Item";
+@inject("inventory","items")
 @observer
 class Market extends Component {
   constructor() {
@@ -14,11 +15,11 @@ class Market extends Component {
       await this.setState({
         newItem: e.target.value
       });
-      this.props.agora.addItem(this.state.newItem);
+      this.props.inventory.addItem(this.state.newItem);
     }
   };
   render() {
-    const agora = this.props.agora;
+    const agora = this.props.inventory;
     return (
       <div>
         <input type="text" onKeyPress={this.addItem} />
